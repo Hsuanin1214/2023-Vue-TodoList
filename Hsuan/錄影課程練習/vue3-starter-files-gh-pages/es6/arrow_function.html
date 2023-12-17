@@ -6,67 +6,79 @@
 // #1 箭頭函式的縮寫
 const arr = [1, 2, 3, 4, 5];
 
-// const filterArr = arr.filter(item => item % 2); // 取有餘數的值（單數）
-// console.log(filterArr);
+const filterArr = arr.filter(item => item % 2); // 取有餘數的值（單數）
+//這邊的箭頭函式會自動帶上return
+//如果只有一個參數的話可以把item外面的括弧拿掉
+//
+console.log(filterArr);
 
 
 // #2 This 綁定的差異
 // #2-1 活用觀念，將內層的改為箭頭
+//[重要!!]箭頭函式沒有自己的this
 // var name = '全域'
 // const person = {
 //   name: '小明',
 //   callName: function () { 
-//     console.log('1', this.name); // 1 小明
-//     setTimeout(function () {
-//       console.log('2', this.name); // 2
-//       console.log('3', this); // 3
+//     console.log('1', this.name); // 1 小明  =>小明
+//     setTimeout(()=> {//裡面的this不影響箭頭函式 ，所以他會跟外層的指向一樣
+//       console.log('2', this.name); // 2 全域 =>小明
+//       console.log('3', this); // 3 window  => person
 //     }, 10);
 //   },
 // }
 // person.callName();
 
 
-// #3 陷阱
+
+// #3 陷阱 [重要!!]
 // #3-1
 // var name = '全域'
 // const person = {
 //   name: '小明',
 //   callName: () => { 
-//     console.log(this.name); // 請尋找箭頭所在的作用域為何？
+//     console.log(this.name); //箭頭函式內的this，會看外面的函式，跟著外面的函式走，如果外面沒有函式就會是全域，指向全域
 //   },
 // }
-// person.callName();
+// person.callName(); 
 
 // #3-2
-// var name = '全域'
-// const person = {
-//   name: '小明',
-//   callMe() {
-//     const callName = () => { 
-//       console.log(this.name); // 請尋找箭頭所在的作用域為何？
-//     };
-//     callName();
-//   }
-// }
-// person.callMe();
+var name = '全域'
+const person = {
+  name: '小明',
+  callMe() {
+    const callName = () => { 
+      console.log(this.name); // 請尋找箭頭所在的作用域為何？外層有callme()c函式=>跟著外層走//小明
+    };
+    callName();
+  }
+}
+person.callMe();
 
-// #4 實戰手法
-// var someone = '全域';
+// #4 實戰手法[重要!!]
+//如果怕指向不如預期
+//1. this 先指向其他變數
+//2. 使用箭頭函式(會較精簡))
+var someone = '全域';
 // function callSomeone() {
 //   console.log(this.someone);
 // }
 
-// var obj4 = {
-//   someone: '物件 4',
-//   fn() {
-//     // const vm = this; // vm 在 Vue 中意指 ViewModel
-//     setTimeout(function () {
-//       console.log(this.someone);
-//     });
-//   }
-// }
+var obj4 = {
+  someone: '物件 4',
+  fn() {
+    const vm = this; // 1. this指向別的變數vm 在 Vue 中意指 ViewModel
+    setTimeout(function () { //callback function
+      // console.log(this.someone); //如果是沒有上述兩種做法，會指向全域
+      console.log(vm.someone); //物件 4
+    });
+    setTimeout( ()=> { // 2.箭頭函式
+      console.log(this.someone);//物件 4
+    });
+  }
+}
 
-// obj4.fn();
+obj4.fn();
 </script>
 <!-- 🙇🙇練習結束🙇🙇 -->
 </main>

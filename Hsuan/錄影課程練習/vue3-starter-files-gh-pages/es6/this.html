@@ -7,68 +7,80 @@
 var a = '全域'
 function fn(params) {
   console.log(params, this, window, arguments);
-  debugger;
+  // debugger;
+  //如果fn(1,2,3)
+  //params 外部傳入的參數，params 會顯示1(所需的參數)
+  // this、window、arguments、Global 是本身就會帶入的
+  //arguments 傳統函式代入的參數，代入所有函式代入的參數內容，但fn()只需要一個參數，他仍會顯示1,2,3，arguments 也是類陣列
+  //this 目前是指向window
+  //還有一個window就是Global : 本身debugger後Scope裡會有的全域變數
 }
+fn(1,2,3);
 
 // #2 this 的指向為何
-// var obj = {
-//   name: '小明',
-//   fn: function(params) {
-//     console.log(params, this, window, arguments);
-//     // debugger;
-//   }
-// }
+var obj = {
+  name: '小明',
+  fn: function(params) {
+    console.log(params, this, window, arguments);
+    // debugger;
+  }
+}
+obj.fn(1,2,3);
+//這裡與上面不同的是:這裡的this指向obj
 
 // #3 注意：this 的指向相當複雜，大部分情境只需要了解其中一種即可(95%)
-// 傳統函式中的 this 只與調用方式有關
-// var someone = '全域';
-// function callSomeone() {
-//   console.log(this.someone);
-// }
-// callSomeone();
+// [重要!!]傳統函式中的 this 只與調用方式有關，看前面是否有物件(有的話就會是指向物件)
+//看到函式前面的物件是甚麼就可以知道this的指向
+var someone = '全域';
+function callSomeone() {
+  console.log(this.someone);
+}
+callSomeone();//叫做simple call 前沒有物件會指向全域變數
 
 // #4 各種運用變化
-// var obj = {
-//   someone: '物件',
-//   callSomeone() {
-//     console.log(this.someone);
-//   }
-// }
-// obj.callSomeone();
+var obj = {
+  someone: '物件',
+  callSomeone() {
+    console.log(this.someone);
+  }
+}
+obj.callSomeone();//物件
 
-// var obj2 = {
-//   someone: '物件2',
-//   callSomeone
-// }
-// obj2.callSomeone();
+var obj2 = {
+  someone: '物件2',
+  callSomeone
+}
+obj2.callSomeone();//物件2
 
-// var wrapObj = {
-//   someone: '外層物件',
-//   callSomeone,
-//   innerObj: {
-//     someone: '內層物件',
-//     callSomeone,
-//   }
-// }
-// wrapObj.innerObj.callSomeone();
+var wrapObj = {
+  someone: '外層物件',
+  callSomeone,
+  innerObj: {
+    someone: '內層物件',
+    callSomeone,
+  }
+}
+wrapObj.callSomeone(); //外層物件
+wrapObj.innerObj.callSomeone();//內層物件
 
-// var obj3 = {
-//   someone: '物件 3',
-//   fn() {
-//     callSomeone(); // 通常平常不會這樣去取用 this
-//   }
-// }
-// obj3.fn();
+var obj3 = {
+  someone: '物件 3',
+  fn() {
+    callSomeone(); // 通常平常不會這樣去取用 this=>會直接在物件下調用callSomeone()
+  }
+}
+obj3.fn(); // 因為callSomeone() 前面沒有指向物件，所以是全域，fn才是指向obj3
 
-// var obj4 = {
-//   someone: '物件 4',
-//   fn() {
-//     setTimeout(function () {
-//       console.log(this.someone);
-//     });
-//   }
-// }
-// obj4.fn();
+var obj4 = {
+  someone: '物件 4',
+  fn() {
+    //callback function=>大多數來說都是用simple call形式
+    setTimeout(function () { 
+      console.log(this.someone);//因為function是直接運行，所以會指向全域
+    });
+  }
+}
+obj4.fn();
 
 </script>
 <!-- 🙇🙇練習結束🙇🙇 -->

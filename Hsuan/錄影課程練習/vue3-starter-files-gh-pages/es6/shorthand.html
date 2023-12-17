@@ -72,26 +72,38 @@ console.log(groupAll);
 
 // #3-2 物件擴展
 // 新增一個物件包含新方法，同時加入原有的方法
-// const methods = {
-//   fn1() {
-//     console.log(1);
-//   },
-//   fn2() {
-//     console.log(1);
-//   },
-// }
+const methods = {
+  fn1() {
+    console.log(1);
+  },
+  fn2() {
+    console.log(1);
+  },
+}
+const newMethods = {
+  fn(){
+    console.log(1);
+  },
+  ...methods  // 展開物件內的方法，將所有方法加到新物件內
+}
+console.log(newMethods);
 
 
 // #3-3 轉成純陣列
 const doms = document.querySelectorAll('li');
-console.log(doms); // 請轉為純陣列
+console.log(doms); //是nodeList
+// 請轉為純陣列
+const newDoms = [...doms]; //展開可以得到純陣列
+console.log(newDoms);
 
 
 // #4 預設值
-// function sum(a, b) { // 請加入預設值避免錯誤
-//   return a + b;
-// }
-// console.log(sum(1));
+function sum(a, b=2) { // 請加入預設值避免錯誤
+  // if(!b){b=2}  //原本的寫法
+  return a + b;
+}
+// console.log(sum(1)); // 1+2=3
+console.log(sum(1,4)); // 1+4=5
 
 
 </script>

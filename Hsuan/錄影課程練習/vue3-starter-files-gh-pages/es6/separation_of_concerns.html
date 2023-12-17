@@ -7,7 +7,48 @@
   <ul></ul>
 </div>
 <script>
+//畫面html
+//資料data
+//方法function
 
+//#元件結構(物件方式建立元件)
+// 1. 資料
+// 2. 方法、觸發器
+// 3. 生命週期
+const component = {
+  data: [
+    '這是第一句話',
+    '這是第二句話',
+    '這是第三句話'
+  ],
+  deleteData(id){  // 監聽觸發  
+    console.log(id);
+    this.data.splice(id,1);
+    this.render();
+  },
+  render(){ //渲染方法
+    const list = document.querySelector('.component ul')
+    console.log(list);
+    // let content = '';
+    // this.data.forEach((item,index)=>{
+    //   content = `${content}<li>${item}</li><button type="button"  class="btn" data-id="${index}">刪除</button>`
+    //   console.log(content)
+    // })
+    let content = this.data.map(item => `<li>${item}</li>`).join('')
+    list.innerHTML = content;
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((item)=>{
+      item.addEventListener('click',(e)=>{
+        let id = e.target.dataset.id;
+        this.deleteData(id); // 因為有使用箭頭函式，所以this=component
+      })
+    })
+  },
+  init(){  // 生命週期
+    this.render();
+  }
+}
+component.init();
 
 </script>
 
