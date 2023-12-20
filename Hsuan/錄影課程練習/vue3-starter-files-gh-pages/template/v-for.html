@@ -7,7 +7,7 @@
   <h3>呈現多筆資料於畫面上 v-for</h3>
   <p>菜單</p>
   <ul>
-    
+    <li v-for="(item ,key) in products">索引 {{key + 1}} - 產品:{{item.name}} / 價格 {{item.price}}</li>
   </ul>
 
   <h3>物件回圈</h3>
