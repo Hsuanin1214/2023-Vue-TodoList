@@ -35,11 +35,11 @@ const App = {
     }
   },
   methods: {
-    trigger: function() {
+    trigger: function() { // 不要再option api使用箭頭函式，可能會造成this指向不正確
       this.num++
     }
   },
-  created() {
+  created() { // 不要再option api使用箭頭函式，可能會造成this指向不正確
     this.num = 1;
     console.log(this);
   }
@@ -55,7 +55,7 @@ Vue.createApp(App).mount('#app');
     setup() {
       // 定義資料
       const num = ref(0);
-      // 生命週期
+      // 生命週期(不用特別匯出(return)，因為已經運行好了)
       onMounted(() => {
         num.value = 1;
       });
