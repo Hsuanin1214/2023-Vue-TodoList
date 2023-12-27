@@ -17,7 +17,7 @@
   <ul>
     <li v-for="item in carts">{{ item.name }}</li>
   </ul>
-  total 的值：<br>
+  total 的值：{{total}}<br>
 
   <h3>Computed 常見技巧 - 搜尋</h3>
   <input type="search" v-model="search">
@@ -65,6 +65,36 @@ const App = {
       ],
       carts: [],
       sum: 0,
+    }
+  },
+  computed:{
+    //物件結構
+    // total(){ //將值變成方法
+    //   let total = 0;
+    //   this.carts.forEach(item=>{
+    //     total += item.price;
+    //   });
+    //   return total;
+    // },
+    total:{ //因為有get、set =>這邊改為物件
+      get() { 
+        let total = 0;
+        this.carts.forEach(item=>{
+          total += item.price;
+        });
+        // return total;
+        return this.sum|| total; //看是否版有自訂金額，沒有的話，就用原本的total
+      },
+      set(val){
+        console.log(val);
+        // this.sum = val * 0.8; // 打八折(跟total是獨立計算的)
+        this.sum = val; // 老闆直接決定要等於多少錢
+      }
+    },
+    filterProducts(){
+      return this.products.filter(item=>{ //去找商品是否有跟搜尋一樣的字，過濾出來
+        return item.name.match(this.search)
+      })
     }
   },
   methods: {

@@ -85,8 +85,39 @@ const App = {
   },
   computed: {
     result2() {
-      
+      return `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${this.productVegan? '是' : '不是'} 素食的`
     }
+  },
+  watch:{ //物件
+    tempName(n,o){ //n為新的值,o為舊的值
+      console.log(n,o);
+      if(n.length >= 10){
+        this.result = `文字長度為 ${n.length} 個字，將儲存至變數中`;
+        this.name = n;
+      }else{
+        this.result = `輸入的文字僅有 ${n.length} 個字，上一次有 ${o.length} 個字`
+      }
+    },
+    //watch無法一開始就渲染文字在上面(因為這些變數一開始沒有變動)
+    //如果需要多個變數同時監聽，用watch需要撰寫三次=>這時候用computed較適合
+    productName(){
+      this.result3 = `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${this.productVegan? '是' : '不是'} 素食的`
+    },
+    productPrice(){
+      this.result3 = `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${this.productVegan? '是' : '不是'} 素食的`
+    },
+    productVegan(){
+      this.result3 = `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${this.productVegan? '是' : '不是'} 素食的`
+    },
+    //進行深層監聽=>須將變數改為物件
+    product:{
+      handler(n,o){
+        console.log(n,o);
+        this.result4 = `媽媽買了 ${this.product.name}，總共花費 ${this.product.price} 元，另外這 ${this.product.productVegan? '是' : '不是'} 素食的`
+      },
+      deep:true
+    }
+
   },
   // 保留文字：
   // `文字長度為 ${n.length} 個字，將儲存至變數中`
