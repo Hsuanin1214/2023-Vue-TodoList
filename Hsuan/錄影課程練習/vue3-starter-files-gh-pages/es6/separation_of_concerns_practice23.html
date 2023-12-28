@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul></ul>
+    </div>
+    <input type="text" id="inputByAdd">
+    <button type="button" id="buttonByAdd">新增</button>
+    <script>
+        //資料
+        const data = [
+            {
+                id:1,
+                content:'我是卡斯柏'
+            },
+            {
+                id:2,
+                content:'我是小名'
+            }
+        ]
+        let num = data.length;
+        const app = document.querySelector('#app ul');
+        function render(){
+            let template = '';
+            data.forEach(item=>{
+                template = template +`<li>${item.content}
+                    <button type="button" class="btnsByRemove" data-id="${item.id}">刪除</button></li>`
+            })
+            app.innerHTML = template
+            console.log(template);
+            const btnsByRemove = document.querySelectorAll('.btnsByRemove') //要放在裡面才抓得到
+            btnsByRemove.forEach(btn=>{
+                btn.addEventListener('click',function(evt){
+                    console.log( evt.target.dataset.id);
+                    const id = Number.parseInt(evt.target.dataset.id); // 取得字串=>要轉成數值
+                    console.log(id);
+                    removeItem(id)
+
+                })
+            })
+        }
+        render();
+
+        const btnByAdd = document.querySelector('#buttonByAdd')
+        const inputByAdd = document.querySelector('#inputByAdd')
+        console.log(btnByAdd,inputByAdd);
+        btnByAdd.addEventListener('click',function(){
+            //console.dir(inputByAdd);//可以看到input有多少東西在裡面
+            const val = inputByAdd.value;
+            addItem(val);
+            inputByAdd.value = '';
+        })
+
+        function addItem(content){
+            num ++;
+            data.push({
+                id:num,
+                content
+            })
+            console.log(data);
+            render();
+        }
+        // addItem('我是誰')
+
+        function removeItem(id){
+            // let index = 0;
+            // data.forEach((item,i)=>{
+            //     if(item.id === id){
+            //         index = i;
+            //     }
+            // })
+            const index = data.findIndex(item=>item.id === id);
+            // console.log(index);
+            data.splice(index,1);
+            console.log(data);
+            render();
+        }
+        // removeItem(3)
+    </script>
+</body>
+</html>
