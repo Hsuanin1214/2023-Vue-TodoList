@@ -68,7 +68,6 @@ const app = createApp({
       selectedProduct.value = product || null;
       if (!product) {
         console.log(`Product with ID ${productId} not found.`);
-        // 可以在這裡處理產品不存在的情況，比如顯示錯誤訊息
       }
     }
     return {
