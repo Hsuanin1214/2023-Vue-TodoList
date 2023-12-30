@@ -77,18 +77,12 @@ const products = [
 createApp({
   data() {
     return {
-      // products: [],
       //products : products,
       products, // 縮寫
       selectedProduct:null
     };
   },
   methods: {
-    // showProductDetail(evt){
-    //     let idClicked = evt.target.dataset.btnId
-    //     this.selectedProduct = this.products[this.products.findIndex(item=>item.id === idClicked)];
-    //     console.log(this.selectedProduct);
-    // }
     showProductDetail(productId) {
       const product = this.products.find(product => product.id === productId);
       this.selectedProduct = product || null;
@@ -97,8 +91,5 @@ createApp({
         // 可以在這裡處理產品不存在的情況，比如顯示錯誤訊息
       }
     }
-  },
-  // created() {
-  //   this.products = products;
-  // },
+  }
 }).mount("#app");
