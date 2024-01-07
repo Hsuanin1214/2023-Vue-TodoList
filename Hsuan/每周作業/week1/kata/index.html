@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"><ul></ul></div>
+    <input type="text" id='inputByAdd'>
+    <button type="button" id="buttonByAdd">新增</button>
+
+    <script>
+        //資料
+        const data = [
+            {
+                id:1,
+                content:'我是卡斯柏'
+            },
+            {
+                id:2,
+                content:'我是小美'
+            }
+        ]
+        let num = data.length;
+
+        const inputByAdd = document.querySelector('#inputByAdd')
+        const buttonByAdd = document.querySelector('#buttonByAdd')
+        const app = document.querySelector('#app ul')
+        buttonByAdd.addEventListener('click',function(){
+            const val = inputByAdd.value;
+            inputByAdd.text = '';
+            addItem(val);
+            console.log(val);
+        })
+        function render(){
+            let template = '';
+            data.forEach(item=>{
+                template += `<li>${item.content}
+                    <button type="button" class="btnRemove" data-id="${item.id}">刪除</button></li>`
+            })
+            app.innerHTML = template;
+
+            const btnsForRemove = document.querySelectorAll('.btnRemove');
+            btnsForRemove.forEach(btn=>{
+                btn.addEventListener('click',function(evt){
+                    console.log(evt);
+                    const id = Number.parseInt(evt.target.dataset.id);
+                    console.log(id);
+                    removeItem(id)
+                })
+            })
+        }
+        render();
+
+        function addItem(content){
+            num++;
+            data.push({
+                id:num,
+                content
+            })
+            console.log(data);
+            render();
+        }
+        // addItem('我是誰')
+        function removeItem(id){
+            const index = data.findIndex((item)=>item.id === id);
+            data.splice(index,1);
+            console.log(data);
+            render();
+        }
+        // removeItem(1)
+    </script>
+</body>
+</html>
