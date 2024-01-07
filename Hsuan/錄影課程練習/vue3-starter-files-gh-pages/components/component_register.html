@@ -26,7 +26,7 @@
   <h4>區域註冊</h4>
   <p>限制在特定元件下才可使用，在 Vue Cli 中很常使用此方法（便於管理）</p>
   <!--如果是在根元件做區域註冊 -->
-  <!-- <alert3></alert3> -->
+  <alert5></alert5>
 
   <h4>模組化</h4>
   <p>同屬於區域註冊，Vue Cli 中的實戰運用技巧</p>
@@ -48,6 +48,16 @@
       {{ text }}
     </div>`
   }
+  const alert5 = {
+    data() {
+      return {
+        text: '元件 5'
+      };
+    },
+    template: `<div class="alert alert-primary" role="alert">
+      {{ text }}
+    </div>`
+  }
   // 注意，這段起手式與先前不同，mounted會放在最後面
   const app = Vue.createApp({
     data() {
@@ -56,7 +66,7 @@
       };
     },
     components:{  //如果是在根元件做區域註冊
-    //   alert3
+    alert5,
     alert4
     }
   }).component('alert', {
