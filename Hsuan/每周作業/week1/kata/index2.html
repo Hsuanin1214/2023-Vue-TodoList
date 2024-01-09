@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul></ul>
+    </div>
+    <input type="text" id='inputByAdd'>
+    <button type="button" id="buttonByAdd">新增</button>
+
+    <script>
+        //資料
+        const data = [
+            {
+                id:1,
+                content:'我是卡斯柏'
+            },
+            {
+                id:2,
+                content:'我是小美'
+            }
+        ]
+        let num = data.length;
+
+        const inputByAdd = document.querySelector('#inputByAdd')
+        const buttonByAdd = document.querySelector('#buttonByAdd')
+        const app = document.querySelector('#app ul')
+
+        buttonByAdd.addEventListener('click',function(){
+            const val = inputByAdd.value;
+            inputByAdd.text = '';
+            addItem(val);
+        })
+
+
+        btnForRemove
+        render()
+
+        function addItem(content){
+            num++;
+            data.push({
+                id:num,
+                content
+            })
+            console.log(data);
+            render();
+        }
+        // addItem('ji3g4')
+        function removeItem(id){
+            let index = data.findIndex(item=> item.id === id);
+            data.splice(index,1);
+            console.log(data);
+            render();
+        }
+        removeItem(1)
+    </script>
+</body>
+</html>
