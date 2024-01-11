@@ -13,6 +13,7 @@
 
 <script type="module">
   import 'https://unpkg.com/mitt/dist/mitt.umd.js'; // mitt
+  const emitter = mitt();
 
   const app = Vue.createApp({});
 
@@ -28,7 +29,10 @@
     },
     methods: {
       sendData() {
-
+        console.log('sendData')
+        //this.$emit
+        emitter.emit('sendProduct',this.product)
+        //發送:自定義的事件名稱，參數
       }
     },
     template: `<div class="card" style="width: 18rem;">
@@ -45,6 +49,13 @@
       }
     },
     created() {
+      //接收
+      emitter.on('sendProduct',(data)=>{
+        //觸發的事件作監聽，會把相同名稱的emit內傳遞的值帶過來
+        //前面為事件名稱，後面為傳遞過來的值要做的事
+        console.log(data)
+        this.item = data;
+      })
 
     },
     template: `<div class="card" style="width: 18rem;">
