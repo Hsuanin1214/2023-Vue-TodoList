@@ -23,8 +23,8 @@
   </div>
 
   <script>
-  const url = 'https://vue3-course-api.hexschool.io/v2'; // 請加入站點
-  const path = 'hsuanin-hexschool'; // 請加入個人 API Path
+  const url = 'https://ec-course-api.hexschool.io/v2'; // 請加入站點
+  const path = 'hsuanin-vue2024'; // 請加入個人 API Path
 
   // #1 如何串接 API 資料
   
@@ -71,11 +71,11 @@
   checkBtn.addEventListener('click', checkLogin);
   function checkLogin(params) {
     // // #3 取得 Token（Token 僅需要設定一次）
-    // const token = document.cookie.replace(/(?:(?:^|.*;\s*))hexToken\s*\=\s*([^;]*).*$)|^.*$/,"$1");
-    // console.log(token);
+    // const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/,"$1",);
+    // // console.log(token);
 
-    //只要加進去一次，axios就會知道
-    axios.defaults.headers.common['Authorization'] = token;
+    // //只要加進去一次，axios就會知道
+    // axios.defaults.headers.common['Authorization'] = token;
     
     // #4  確認是否登入
     axios.post(`${url}/api/user/check`)
@@ -87,8 +87,9 @@
       })
   }
     // #3 取得 Token（Token 僅需要設定一次）=>放到外層確保每次都能再登入狀態
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*))hexToken\s*\=\s*([^;]*).*$)|^.*$/,"$1");
-    console.log(token);
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/,"$1",);
+    // console.log(token);
+    axios.defaults.headers.common['Authorization'] = token;
 
   getProductsBtn.addEventListener('click', getProducts)
   function getProducts() {
@@ -108,7 +109,7 @@
 
     const product = {
       data: {
-        title: '[賣]動物園造型衣服3', 
+        title: '[賣]動物園造型衣服6', 
         category: '衣服2',
         origin_price: 100,
         price: 300,
@@ -121,7 +122,7 @@
     }
     
     // #6 新增一個產品
-    axios.post(`${url}/api/${path}/admin/products`,product)
+    axios.post(`${url}/api/${path}/admin/product`,product)
     .then((res)=>{
       console.log(res.data);
     })
@@ -134,8 +135,8 @@
   delProductBtn.addEventListener('click', removeProduct)
   function removeProduct() {
     // #7 刪除一個產品
-    let id = '';//要刪除的id品項
-    axios.delete(`${url}/api/${path}/admin/products/${id}`)
+    let id = '-Nnr6aUu06s8HXn-ya7d';//要刪除的id品項
+    axios.delete(`${url}/api/${path}/admin/product/${id}`)
     .then((res)=>{
       console.log(res.data);
     })
