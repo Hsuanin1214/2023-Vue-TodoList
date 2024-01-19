@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>民國時間轉換</h1>
+        <input type="date" v-model="selectData">
+        <p>民國年: {{rocYear}}</p>
+        <ul>
+            <li v-for="(item,index) in history" :key="index">
+                所有年:{{item.date}} / 民國年: {{item.rocYear}}
+            </li>
+        </ul>
+    </div>
+    <script type="module">
+        import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+        const app = createApp({
+            data() {
+                return {
+                    selectData: '',
+                    history:[]
+
+                }
+            },
+            computed: {
+                //計算民國的時間結果
+                //computed 不會修改當前的資料(selectData)，只會作為渲染return結果(rocYear)的用途
+                rocYear(){
+                    if(this.selectData){
+                        const year = new Date(this.selectData).getFullYear();
+                        console.log(year);
+                        return year >= 1912 ? year - 1911 : null;
+                    }
+                    return null;
+                }
+            },
+            watch: {
+                //會修改當前資料，像是執行一個函式一樣
+                //監聽特定值
+                //等同於觸發一個方法，可以修改定義的資料
+                selectData(currentData,preData){ //當前資料currentData與前一份資料preData
+                    console.log(currentData,preData)
+                    if(currentData){
+                        const year = new Date(currentData).getFullYear();
+                        console.log(year)
+                        if(year >= 1912){
+                            this.history.push({
+                                date:currentData,
+                                rocYear:year - 1911
+                            })
+                        }
+                    }
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
