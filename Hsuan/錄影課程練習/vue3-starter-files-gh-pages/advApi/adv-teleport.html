@@ -14,7 +14,7 @@
   <card2></card2>
 
   <h3>實用技巧（取代標題、多個）</h3>
-<!--  <new-title></new-title>-->
+ <new-title></new-title>
 </div>
 
 <script>
@@ -45,12 +45,16 @@ const app = Vue.createApp({
   });
 
   app.component('card2', {
+    //因為他無法運行到右邊的區塊，所以這編寫的話會有警告
     template: `
+    <teleport to=".col-md-3">
       <div class="alert alert-danger">被招喚的元素</div>
-    `
+      </teleport>
+      `
   })
 
   app.component('new-title', {
+    //可以替換標題或是多個teleport使用
     template: `<teleport to="title"> - 新增的標題片段</teleport>
     <teleport to="h1"> - 新增的文字片段</teleport>`
   })
