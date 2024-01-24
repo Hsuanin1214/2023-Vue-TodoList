@@ -2,7 +2,7 @@
 <div class="container main my-5"><div class="row"><main class="col post">
 <!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">版型製作</h1><small>檔名：<code>layout.html</code></small></div>
 <!-- 🔥🔥練習開始🔥🔥 -->
-<nav class="navbar bg-light">
+<!-- <nav class="navbar bg-light">
   <div class="container-fluid">
     <span class="navbar-brand mb-0 h1">hsu餅乾店</span>
     <button type="button" class="btn">
@@ -10,13 +10,14 @@
       <span class="badge rounded-pill bg-danger text-white">0</span>
     </button>
   </div>
-</nav>
+</nav> -->
 
-<div class="bg-light my-4 p-4">
-  <div>購物車沒有任何品項</div> <!-- v-if -->
+  <!-- v-if -->
+<!-- <div class="bg-light my-4 p-4">
+  <div>購物車沒有任何品項</div>  -->
   <!-- v-else -->
   <!-- align-middle 垂直置中 -->
-  <table class="table align-middle">
+  <!-- <table class="table align-middle">
     <tbody>
       <tr>
         <td>
@@ -43,9 +44,9 @@
       </tr>
     </tfoot>
   </table>
-</div>
+</div> -->
 
-<div class="row row-cols-3 my-4">
+<!-- <div class="row row-cols-3 my-4">
   <div class="col">
     <div class="card">
       <img src="https://images.unsplash.com/photo-1597733153203-a54d0fbc47de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1090&q=80" 
@@ -59,7 +60,41 @@
       </div>
     </div>
   </div>
+</div> -->
+<div id="app">
+  <Navbar-component></Navbar-component>
+  <Cart-component></Cart-component>
+  <Product-component></Product-component>
 </div>
+<script type="module">
+const {createApp} = Vue;
+// console.log(createApp);
+import NavbarComponent from './homeworkComponents/navbarComponent.js';
+import CartComponent from './homeworkComponents/cartComponent.js';
+import ProductComponent from './homeworkComponents/productComponent.js';
+// const NavbarComponent = {
+//   template:`<nav class="navbar bg-light">
+//   <div class="container-fluid">
+//     <span class="navbar-brand mb-0 h1">hsu餅乾店</span>
+//     <button type="button" class="btn">
+//       購物車
+//       <span class="badge rounded-pill bg-danger text-white">0</span>
+//     </button>
+//   </div>
+// </nav>`
+// }
+
+
+
+const app = createApp({
+  components:{
+    NavbarComponent,
+    CartComponent,
+    ProductComponent
+  }
+});
+app.mount('#app');
+</script>
 
 <style>
   .table-image{
