@@ -8,7 +8,7 @@
   <card ref="card"></card>
 </div>
 <script type="module">
-const { createApp, ref } = Vue;
+const { createApp, ref,onMounted } = Vue;
 
 const card = {
   template: `<div class="card" style="width: 18rem;">
@@ -35,9 +35,15 @@ const app = createApp({
     const person = ref({
       name: '卡斯伯'
     });
-
+    const btn = ref(null); // 定義 $refs 的 DOM 物件，需要與$refs的名稱相同
+    const card = ref(null);
+    onMounted(()=>{
+      console.log(btn.value,card.value);
+    })
     return {
       person,
+      btn,
+      card
     }
   },
 });
