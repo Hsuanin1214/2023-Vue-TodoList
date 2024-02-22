@@ -4,7 +4,7 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
-  <card ></card>
+  <card @push-data="getData"></card>
 </div>
 <script type="module">
 const { createApp, ref } = Vue;
@@ -16,11 +16,11 @@ const card = {
       @click="pushData">送出資料</button>
     </div>
   </div>`,
-  setup(props) {
-    function pushData() {
+  setup(props,{emit}) { // 如果要使用context，前面一定要有一個名稱，不管有沒有用到，context 包含 emit，所以可以直接用大括號 {emit} 取出emit
+    function pushData() { //內層方法
       console.log('pushData');
+      emit('push-data','由內向外傳遞的資料')
     }
-
     return {
       pushData
     }
@@ -28,18 +28,22 @@ const card = {
   }
 }
 
+// 外層
 const app = createApp({
   components: {
     card,
   },
-  setup() {
+  setup() { 
     const person = ref({
       name: '卡斯伯'
     });
+    function getData(text){ // 外層方法
+      console.log('外層的getData方法',text)
+    }
 
     return {
       person,
-      
+      getData
     }
   },
 });
