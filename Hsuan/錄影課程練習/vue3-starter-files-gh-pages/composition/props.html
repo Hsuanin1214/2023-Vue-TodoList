@@ -4,23 +4,40 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
-  <card></card>
+  <card :item="person" num="1"></card>
 </div>
 <script type="module">
 // import { createApp } from '...';
 const { createApp, ref, toRef } = Vue;
 
+// 內層元件
 const card = {
   template: `<div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title"></h5>
+      <h5 class="card-title">
+        {{item.name}}
+        <br>
+        {{num}}
+        <br>
+        {{name}}
+        <input type="text" v-model="name">
+      </h5>
     </div>
   </div>`,
-  setup() {
+  props:['item','num'],
+  setup(props) {
+    console.log(props) // props 是一個集合
+    const { item,num } = props;
 
+    const name = ref(item.name);  //如果希望內層物件的props也有雙向綁定的特性，可以使用ref，如果直接用item去取得的話沒辦法雙向綁定
+
+    return {
+      item,num,name
+    }
   }
 }
 
+// 外層元件
 const app = createApp({
   components: {
     card,
